@@ -1,0 +1,87 @@
+openapi: 3.0.3
+info:
+  title: Passbase Verifications Identity Project API
+  version: 2.0.0
+  description: The Passbase Verifications API. A User submits a video selfie and valid identifying Resources during a Verification guided by the Passbase client-side integration. Data points are extracted, digitized, and authenticated, becoming part of the User's Identity. The User consents to share Resources and/or Data points, which are passed to you for account decisions. Server-to-server access uses the secret API key.
+  contact:
+    name: Passbase Developer Support
+    email: developer@passbase.com
+  x-status: discontinued
+  x-successor: Parallel Markets
+servers:
+- url: https://api.passbase.com/verification/v2
+  description: Production (historical; host no longer resolvable)
+security:
+- SecuredKeyAuth: []
+tags:
+- name: Project
+  description: Read project settings and verification configuration.
+paths:
+  /settings:
+    get:
+      tags:
+      - Project
+      operationId: getSettings
+      summary: Get project settings
+      description: Get the settings of your project.
+      responses:
+        '200':
+          description: The project settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectSettings'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    ProjectSettings:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the project
+        slug:
+          type: string
+          description: Slugs are meant to verify people just with the link
+        environment:
+          type: string
+        organization:
+          type: string
+          description: Name of the organization that owns this project
+        customizations:
+          $ref: '#/components/schemas/ProjectSettingsCustomizations'
+        verification_steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectSettingsVerificationSteps'
+    ProjectSettingsVerificationSteps:
+      type: object
+      properties:
+        step:
+          type: string
+        resource_types:
+          type: array
+          items:
+            type: string
+    ProjectSettingsCustomizations:
+      type: object
+      properties:
+        button_color:
+          type: string
+          description: '"Verify Me" button background color'
+        accent_color:
+          type: string
+          description: Accent color during the verification flow
+        font_family:
+          type: string
+          description: Font used in the verification flow
+  responses:
+    Unauthorized:
+      description: Authentication credentials were missing or invalid.
+  securitySchemes:
+    SecuredKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: Secret API key sent in the X-API-KEY header. A Bearer JWT (identity_access_token) may also be supplied by prefixing the header value with "Bearer ".

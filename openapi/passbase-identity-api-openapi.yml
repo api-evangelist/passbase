@@ -1,0 +1,331 @@
+openapi: 3.0.3
+info:
+  title: Passbase Verifications Identity API
+  version: 2.0.0
+  description: The Passbase Verifications API. A User submits a video selfie and valid identifying Resources during a Verification guided by the Passbase client-side integration. Data points are extracted, digitized, and authenticated, becoming part of the User's Identity. The User consents to share Resources and/or Data points, which are passed to you for account decisions. Server-to-server access uses the secret API key.
+  contact:
+    name: Passbase Developer Support
+    email: developer@passbase.com
+  x-status: discontinued
+  x-successor: Parallel Markets
+servers:
+- url: https://api.passbase.com/verification/v2
+  description: Production (historical; host no longer resolvable)
+security:
+- SecuredKeyAuth: []
+tags:
+- name: Identity
+  description: Access verified identities, their resources and resource files.
+paths:
+  /identities:
+    get:
+      tags:
+      - Identity
+      operationId: listIdentities
+      summary: List identities
+      description: List all the identities of your project.
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A paginated list of identities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedIdentities'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /identities/{id}:
+    get:
+      tags:
+      - Identity
+      operationId: getIdentityById
+      summary: Get identity
+      description: Get an identity by providing the identity ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Identity id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The identity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Identity'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /identity/{id}/resources:
+    get:
+      tags:
+      - Identity
+      operationId: listIdentityResources
+      summary: List resources
+      description: List all the resources attached to an identity.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Identity id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A paginated list of resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResources'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /identity/{id}/resources/{resource_id}:
+    get:
+      tags:
+      - Identity
+      operationId: getIdentityResourceById
+      summary: Get resource
+      description: Get a resource attached to an identity by providing the resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Identity id
+        schema:
+          type: string
+      - name: resource_id
+        in: path
+        required: true
+        description: Resource id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /identity/{id}/resources/{resource_id}/resource_files/{resource_file_id}:
+    get:
+      tags:
+      - Identity
+      operationId: getIdentityResourceFileById
+      summary: Get resource file
+      description: Get a raw resource file attached to an identity by providing the resource ID and the resource file ID. This is a protected route and you'll need a specific government authorization to access it.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Identity id
+        schema:
+          type: string
+      - name: resource_id
+        in: path
+        required: true
+        description: Resource id
+        schema:
+          type: string
+      - name: resource_file_id
+        in: path
+        required: true
+        description: Resource file id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The raw resource file.
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/ResourceFile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Forbidden:
+      description: The credentials do not grant access to this resource.
+    Unauthorized:
+      description: Authentication credentials were missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded.
+    NotFound:
+      description: The requested resource was not found.
+  schemas:
+    Cursor:
+      type: object
+      properties:
+        next:
+          type: string
+          description: opaque token to pass back to the API to get the next batch of data
+    PaginatedIdentities:
+      type: object
+      properties:
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Identity'
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID representing a resource
+        status:
+          type: string
+          description: Current state of the resource in Passbase's systems
+        created:
+          type: integer
+          description: Unix-timestamp of when the resource was created
+        updated:
+          type: integer
+          description: Unix-timestamp of when the resource was updated
+        type:
+          type: string
+          description: All resource types that passbase supports
+        resource_files:
+          type: array
+          items:
+            type: object
+    ResourceFile:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID representing a resource file
+        created:
+          type: integer
+          description: Unix-timestamp of when the resource was created
+        updated:
+          type: integer
+          description: Unix-timestamp of when the resource was updated
+        file:
+          type: string
+          format: binary
+          description: 'Raw bytes: the actual file'
+    WatchlistResponse:
+      type: object
+      properties:
+        clean:
+          type: boolean
+          description: Indicates whether the authentication watchlist check is clean
+        listings:
+          type: object
+          description: Watchlist check findings
+        media:
+          type: array
+          items:
+            type: object
+          description: List of media entries, with date, title, and url parameters
+        sources:
+          type: array
+          items:
+            type: string
+          description: Array of listing sources (eg. sanction lists)
+        types:
+          type: array
+          items:
+            type: string
+          description: What kind of alert or warning is associated with the entity (eg. sanction, pep, warning)
+    IdentityOwner:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email of the user the identity belongs to
+        first_name:
+          type: string
+          description: First name of the user the identity belongs to
+        last_name:
+          type: string
+          description: Last name of the user the identity belongs to
+    Identity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the identity
+        status:
+          type: string
+          description: Current state of the identity in Passbase's systems
+        owner:
+          $ref: '#/components/schemas/IdentityOwner'
+        score:
+          type: number
+          format: double
+          description: Float between 0 and 1 representing confidence that this identity is valid.
+        created:
+          type: integer
+          description: Unix-timestamp of when the identity was created
+        updated:
+          type: integer
+          description: Unix-timestamp of when the identity was updated
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentityResource'
+          description: resources attached to a verification
+        metadata:
+          type: object
+          description: Customer defined arbitrary payload initially passed through the client-sdk
+        watchlist:
+          $ref: '#/components/schemas/WatchlistResponse'
+    PaginatedResources:
+      type: object
+      properties:
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+    IdentityResource:
+      type: object
+      properties:
+        datapoints:
+          type: object
+          description: Dynamic key/value hashmap of the data extracted from the resource.
+        type:
+          type: string
+          description: All resource types that passbase supports
+  securitySchemes:
+    SecuredKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: Secret API key sent in the X-API-KEY header. A Bearer JWT (identity_access_token) may also be supplied by prefixing the header value with "Bearer ".
