@@ -1,0 +1,42 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/passbase-verification-openapi.yml + https://github.com/passbase/passbase-php (SDK docs)
+note: >-
+  Cross-cutting request/response semantics for the Passbase Verifications API v2,
+  derived from the reconstructed OpenAPI and the published SDK docs.
+authentication:
+  style: api-key
+  header: X-API-KEY
+  alternative: Bearer JWT (identity_access_token) via "Bearer " prefix on X-API-KEY
+  ref: authentication/passbase-authentication.yml
+pagination:
+  style: cursor
+  request_params: [limit, cursor]
+  response_fields:
+    cursor: cursor.next
+    data: data
+  note: >-
+    List endpoints return a `cursor` object with an opaque `next` token; pass it
+    back as the `cursor` query param to fetch the next batch. `limit` caps batch size.
+idempotency:
+  supported: false
+  note: The v2 API surface is read-only (GET only); no idempotency-key contract is documented.
+versioning:
+  scheme: uri-path
+  current: v2
+  base_path: /verification/v2
+error_envelope:
+  format: http-status + application/json
+  ref: errors/passbase-problem-types.yml
+rate_limiting:
+  documented: partial
+  signal: HTTP 429 on limit exceeded
+metadata:
+  supported: true
+  field: metadata
+  note: Customer-defined arbitrary payload passed through the client SDK and returned on the Identity.
+timestamps:
+  format: unix-epoch-seconds
+  fields: [created, updated]
+webhooks:
+  ref: asyncapi/passbase-webhooks.yml

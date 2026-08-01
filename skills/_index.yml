@@ -1,0 +1,15 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/passbase-verification-openapi.yml
+note: >-
+  Agent Skills generated from the reconstructed Verifications API v2 OpenAPI.
+  Every step is grounded in a real operationId from the spec.
+skills:
+  - file: passbase-fetch-verified-identity.md
+    name: Fetch a verified identity and its resources
+    api: openapi/passbase-verification-openapi.yml
+    operations: [listIdentities, getIdentityById, listIdentityResources, getIdentityResourceById]
+  - file: passbase-read-project-settings.md
+    name: Read project verification settings
+    api: openapi/passbase-verification-openapi.yml
+    operations: [getSettings]

@@ -1,0 +1,29 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/passbase-verification-openapi.yml
+format: http-status
+note: >-
+  Derived from the HTTP error responses on the reconstructed Verifications API
+  v2 operations. Passbase used conventional HTTP status codes with a JSON error
+  body (not RFC 9457 problem+json). The SDK surfaces these as ApiException.
+envelope:
+  transport: http-status
+  media_type: application/json
+  exception_class: ApiException
+problems:
+  - status: 401
+    title: Unauthorized
+    detail: Authentication credentials were missing or invalid (bad or missing X-API-KEY).
+    source_operations: [listIdentities, getIdentityById, listIdentityResources, getIdentityResourceById, getIdentityResourceFileById, getSettings]
+  - status: 403
+    title: Forbidden
+    detail: The credentials do not grant access to this resource (e.g. resource-file route requires specific government authorization).
+    source_operations: [listIdentities, getIdentityById, listIdentityResources, getIdentityResourceById, getIdentityResourceFileById]
+  - status: 404
+    title: Not Found
+    detail: The requested identity, resource, or resource file was not found.
+    source_operations: [getIdentityById, listIdentityResources, getIdentityResourceById, getIdentityResourceFileById]
+  - status: 429
+    title: Too Many Requests
+    detail: Rate limit exceeded.
+    source_operations: [listIdentities]

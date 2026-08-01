@@ -1,0 +1,38 @@
+# Passbase
+
+> Passbase was a developer-first identity verification (KYC) platform: facial
+> comparison, liveness detection, and government-ID authenticity checks across
+> 190+ countries, delivered through client SDKs and a server-side Verifications
+> API. Passbase was acquired by Parallel Markets in March 2023; api.passbase.com
+> and docs.passbase.com are no longer live and this profile captures the
+> last-published API surface. Backed by Cowboy Ventures and Seedcamp.
+
+## API
+
+- [Verifications API v2 (OpenAPI)](openapi/passbase-verification-openapi.yml): Read verified identities, their resources and resource files, and project settings. Base URL https://api.passbase.com/verification/v2 (historical). Auth via X-API-KEY.
+
+## Specs & Artifacts
+
+- [Authentication profile](authentication/passbase-authentication.yml): apiKey X-API-KEY (+ optional Bearer JWT).
+- [Conventions](conventions/passbase-conventions.yml): cursor pagination, unix timestamps, HTTP-status errors.
+- [Error catalog](errors/passbase-problem-types.yml): 401/403/404/429 responses.
+- [Data model](data-model/passbase-data-model.yml): Identity → resources/owner/watchlist entity graph.
+- [Webhooks](asyncapi/passbase-webhooks.yml): verification.completed / verification.reviewed events.
+- [MCP tool candidates](mcp/passbase-mcp.yml): one tool per operation (derived).
+- [Agent skills](skills/_index.yml): fetch-verified-identity, read-project-settings.
+- [Conformance](conformance/passbase-conformance.yml): REST + apiKey + cursor pagination.
+- [Lifecycle](lifecycle/passbase-lifecycle.yml): v2; discontinued (acquired by Parallel Markets).
+- [Domain security](security/passbase-domain-security.yml): probed TLS/HSTS posture.
+
+## Packages (official SDKs)
+
+- [Node.js @passbase/node](https://www.npmjs.com/package/@passbase/node)
+- [Python passbase](https://pypi.org/project/passbase/)
+- [Ruby passbase](https://rubygems.org/gems/passbase)
+- [PHP passbase/passbase-php](https://packagist.org/packages/passbase/passbase-php)
+- [Go passbase-go](https://pkg.go.dev/github.com/passbase/passbase-go)
+
+## Links
+
+- [Successor: Parallel Markets](https://parallelmarkets.com)
+- [GitHub org](https://github.com/passbase)

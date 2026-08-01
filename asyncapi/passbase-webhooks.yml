@@ -1,0 +1,22 @@
+generated: '2026-07-20'
+method: searched
+source: https://github.com/passbase/nodejs-webhook-example + docs.passbase.com (server-side webhooks)
+spec_type: Webhooks
+note: >-
+  Passbase delivered verification lifecycle events via webhooks (HTTP POST to a
+  customer endpoint, e.g. /passbase-webhooks). Payloads could be encrypted; the
+  consumer decrypts with a configured webhook secret. No published AsyncAPI
+  document exists, so this captures the webhook surface only.
+delivery:
+  transport: http
+  method: POST
+  security:
+    encryption: optional
+    mechanism: shared webhook secret (decrypt in handler)
+events:
+  - name: verification.completed
+    description: A verification was completed by the user and is ready for review.
+  - name: verification.reviewed
+    description: A verification was reviewed (approved/declined) in Passbase's systems.
+references:
+  example_server: https://github.com/passbase/nodejs-webhook-example

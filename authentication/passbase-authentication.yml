@@ -1,0 +1,17 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/passbase-verification-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: SecuredKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-API-KEY
+  description: Secret API key sent in the X-API-KEY header. A Bearer JWT (identity_access_token)
+    may also be supplied by prefixing the header value with "Bearer ".
+  sources:
+  - openapi/passbase-verification-openapi.yml

@@ -1,0 +1,16 @@
+{
+  "provider": "passbase",
+  "sources": [
+    "passbase-identity-api-openapi.yml",
+    "passbase-project-api-openapi.yml"
+  ],
+  "outputs": [
+    "passbase-identity-api-openapi.yml",
+    "passbase-project-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

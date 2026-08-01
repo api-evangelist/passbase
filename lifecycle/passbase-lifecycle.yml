@@ -1,0 +1,26 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://www.prnewswire.com/news-releases/parallel-markets-acquires-passbase-accelerating-a-new-era-of-portable-reusable-identity-301782757.html
+  + github.com/passbase SDK docs
+note: >-
+  Passbase's Verifications API was versioned v2 in the URI path. The company was
+  acquired by Parallel Markets on 2023-03-24; www.passbase.com now redirects to
+  parallelmarkets.com and api.passbase.com / docs.passbase.com no longer resolve.
+versioning:
+  scheme: uri-path
+  current: v2
+  base_path: /verification/v2
+status: discontinued
+discontinuation:
+  acquirer: Parallel Markets
+  date: '2023-03-24'
+  successor_url: https://parallelmarkets.com
+  evidence: www.passbase.com 301 -> parallelmarkets.com; api.passbase.com + docs.passbase.com no DNS
+deprecation:
+  policy_url: null
+  sunset_header: false
+sla:
+  url: null
+status_page: null
+deprecated_operations: []

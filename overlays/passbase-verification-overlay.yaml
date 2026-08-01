@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Passbase Verifications API
+  version: 1.0.0
+extends: openapi/passbase-verification-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-status: discontinued
+      x-apievangelist-successor: Parallel Markets
+      x-apievangelist-note: >-
+        Reconstructed from Passbase's published OpenAPI-generated SDK docs; the
+        live API host (api.passbase.com) is no longer resolvable.
+  - target: $.tags
+    update:
+      - name: Identity
+        x-apievangelist-domain: identity-verification
+      - name: Project
+        x-apievangelist-domain: configuration

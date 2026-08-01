@@ -1,0 +1,60 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/passbase-verification-openapi.yml
+note: >-
+  Entity-relationship graph derived from the reconstructed Verifications API v2
+  schemas ($ref links + array/embedded references).
+entities:
+  - name: Identity
+    id_field: id
+    description: A set of Data points and Resources related to and owned by one single User.
+  - name: IdentityOwner
+    description: The user (email/first_name/last_name) an identity belongs to.
+  - name: IdentityResource
+    description: A resource summary embedded on an identity (type + extracted datapoints).
+  - name: Resource
+    id_field: id
+    description: A source document (e.g. Passport) used to generate Data points.
+  - name: ResourceFile
+    id_field: id
+    description: A raw file attached to a resource.
+  - name: WatchlistResponse
+    description: Sanctions/PEP/watchlist screening result attached to an identity.
+  - name: User
+    description: Owner of an email address associated with an Identity, with verification steps.
+  - name: ProjectSettings
+    id_field: id
+    description: Project configuration, customizations, and verification steps.
+relationships:
+  - from: Identity
+    to: IdentityOwner
+    kind: has_one
+    via: owner
+  - from: Identity
+    to: IdentityResource
+    kind: has_many
+    via: resources
+  - from: Identity
+    to: WatchlistResponse
+    kind: has_one
+    via: watchlist
+  - from: Resource
+    to: ResourceFile
+    kind: has_many
+    via: resource_files
+  - from: ProjectSettings
+    to: ProjectSettingsCustomizations
+    kind: has_one
+    via: customizations
+  - from: ProjectSettings
+    to: ProjectSettingsVerificationSteps
+    kind: has_many
+    via: verification_steps
+  - from: PaginatedIdentities
+    to: Identity
+    kind: has_many
+    via: data
+  - from: PaginatedResources
+    to: Resource
+    kind: has_many
+    via: data

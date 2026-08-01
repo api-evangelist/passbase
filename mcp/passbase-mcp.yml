@@ -1,0 +1,30 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/passbase-verification-openapi.yml
+note: >-
+  No official Passbase MCP server exists (the company was acquired by Parallel
+  Markets in 2023). This is a candidate tool list derived one-per-operation from
+  the reconstructed Verifications API v2 OpenAPI, for reference only.
+server:
+  name: passbase
+  transport: http
+tools:
+  - name: list_identities
+    description: List all the identities of your project.
+    source_operation: openapi/passbase-verification-openapi.yml#listIdentities
+  - name: get_identity_by_id
+    description: Get an identity by providing the identity ID.
+    source_operation: openapi/passbase-verification-openapi.yml#getIdentityById
+  - name: list_identity_resources
+    description: List all the resources attached to an identity.
+    source_operation: openapi/passbase-verification-openapi.yml#listIdentityResources
+  - name: get_identity_resource_by_id
+    description: Get a resource attached to an identity by resource ID.
+    source_operation: openapi/passbase-verification-openapi.yml#getIdentityResourceById
+  - name: get_identity_resource_file_by_id
+    description: Get a raw resource file attached to an identity (government-authorized route).
+    source_operation: openapi/passbase-verification-openapi.yml#getIdentityResourceFileById
+  - name: get_settings
+    description: Get the settings of your project.
+    source_operation: openapi/passbase-verification-openapi.yml#getSettings
