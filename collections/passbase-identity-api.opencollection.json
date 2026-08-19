@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Passbase Verifications Identity API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Identity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List identities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.passbase.com/verification/v2/identities",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all the identities of your project."
+        },
+        {
+          "info": {
+            "name": "Get identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.passbase.com/verification/v2/identities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identity id"
+              }
+            ]
+          },
+          "docs": "Get an identity by providing the identity ID."
+        },
+        {
+          "info": {
+            "name": "List resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.passbase.com/verification/v2/identity/:id/resources",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identity id"
+              }
+            ]
+          },
+          "docs": "List all the resources attached to an identity."
+        },
+        {
+          "info": {
+            "name": "Get resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.passbase.com/verification/v2/identity/:id/resources/:resource_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identity id"
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "path",
+                "description": "Resource id"
+              }
+            ]
+          },
+          "docs": "Get a resource attached to an identity by providing the resource ID."
+        },
+        {
+          "info": {
+            "name": "Get resource file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.passbase.com/verification/v2/identity/:id/resources/:resource_id/resource_files/:resource_file_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identity id"
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "path",
+                "description": "Resource id"
+              },
+              {
+                "name": "resource_file_id",
+                "value": "",
+                "type": "path",
+                "description": "Resource file id"
+              }
+            ]
+          },
+          "docs": "Get a raw resource file attached to an identity by providing the resource ID and the resource file ID. This is a protected route and you'll need a specific government authorization to access it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

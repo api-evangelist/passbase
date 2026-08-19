@@ -1,0 +1,166 @@
+{
+  "item": [
+    {
+      "id": "d5388208-ac38-4188-a89f-dff9e76637af",
+      "name": "Project",
+      "description": {
+        "content": "Read project settings and verification configuration.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "629f7527-5f34-4613-ac6e-379b701f65d8",
+          "name": "Get project settings",
+          "request": {
+            "name": "Get project settings",
+            "description": {
+              "content": "Get the settings of your project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64a3503e-ab58-4ec7-8121-fb3267722d0e",
+              "name": "The project settings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"slug\": \"string\",\n  \"environment\": \"string\",\n  \"organization\": \"string\",\n  \"customizations\": {\n    \"button_color\": \"string\",\n    \"accent_color\": \"string\",\n    \"font_family\": \"string\"\n  },\n  \"verification_steps\": [\n    {\n      \"step\": \"string\",\n      \"resource_types\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"step\": \"string\",\n      \"resource_types\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e4ecfb3-6d0a-4376-8639-f258f47761f9",
+              "name": "Authentication credentials were missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.passbase.com/verification/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "70d2f906-49a6-419e-86cc-fddcf2e54f5f",
+    "name": "Passbase Verifications Identity Project API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Passbase Verifications API. A User submits a video selfie and valid identifying Resources during a Verification guided by the Passbase client-side integration. Data points are extracted, digitized, and authenticated, becoming part of the User's Identity. The User consents to share Resources and/or Data points, which are passed to you for account decisions. Server-to-server access uses the secret API key.\n\nContact Support:\n Name: Passbase Developer Support\n Email: developer@passbase.com",
+      "type": "text/plain"
+    }
+  }
+}
