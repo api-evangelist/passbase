@@ -175,78 +175,16 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication credentials were missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded.
+    Forbidden:
+      description: The credentials do not grant access to this resource.
   schemas:
-    Resource:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID representing a resource
-        status:
-          type: string
-          description: Current state of the resource in Passbase's systems
-        created:
-          type: integer
-          description: Unix-timestamp of when the resource was created
-        updated:
-          type: integer
-          description: Unix-timestamp of when the resource was updated
-        type:
-          type: string
-          description: All resource types that passbase supports
-        resource_files:
-          type: array
-          items:
-            type: object
-    PaginatedResources:
-      type: object
-      properties:
-        cursor:
-          $ref: '#/components/schemas/Cursor'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-    WatchlistResponse:
-      type: object
-      properties:
-        clean:
-          type: boolean
-          description: Indicates whether the authentication watchlist check is clean
-        listings:
-          type: object
-          description: Watchlist check findings
-        media:
-          type: array
-          items:
-            type: object
-          description: List of media entries, with date, title, and url parameters
-        sources:
-          type: array
-          items:
-            type: string
-          description: Array of listing sources (eg. sanction lists)
-        types:
-          type: array
-          items:
-            type: string
-          description: What kind of alert or warning is associated with the entity (eg. sanction, pep, warning)
-    ResourceFile:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID representing a resource file
-        created:
-          type: integer
-          description: Unix-timestamp of when the resource was created
-        updated:
-          type: integer
-          description: Unix-timestamp of when the resource was updated
-        file:
-          type: string
-          format: binary
-          description: 'Raw bytes: the actual file'
     Identity:
       type: object
       properties:
@@ -278,12 +216,61 @@ components:
           description: Customer defined arbitrary payload initially passed through the client-sdk
         watchlist:
           $ref: '#/components/schemas/WatchlistResponse'
+    ResourceFile:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID representing a resource file
+        created:
+          type: integer
+          description: Unix-timestamp of when the resource was created
+        updated:
+          type: integer
+          description: Unix-timestamp of when the resource was updated
+        file:
+          type: string
+          format: binary
+          description: 'Raw bytes: the actual file'
+    WatchlistResponse:
+      type: object
+      properties:
+        clean:
+          type: boolean
+          description: Indicates whether the authentication watchlist check is clean
+        listings:
+          type: object
+          description: Watchlist check findings
+        media:
+          type: array
+          items:
+            type: object
+          description: List of media entries, with date, title, and url parameters
+        sources:
+          type: array
+          items:
+            type: string
+          description: Array of listing sources (eg. sanction lists)
+        types:
+          type: array
+          items:
+            type: string
+          description: What kind of alert or warning is associated with the entity (eg. sanction, pep, warning)
     Cursor:
       type: object
       properties:
         next:
           type: string
           description: opaque token to pass back to the API to get the next batch of data
+    PaginatedResources:
+      type: object
+      properties:
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
     IdentityOwner:
       type: object
       properties:
@@ -296,15 +283,6 @@ components:
         last_name:
           type: string
           description: Last name of the user the identity belongs to
-    PaginatedIdentities:
-      type: object
-      properties:
-        cursor:
-          $ref: '#/components/schemas/Cursor'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Identity'
     IdentityResource:
       type: object
       properties:
@@ -314,15 +292,37 @@ components:
         type:
           type: string
           description: All resource types that passbase supports
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-    TooManyRequests:
-      description: Rate limit exceeded.
-    Unauthorized:
-      description: Authentication credentials were missing or invalid.
-    Forbidden:
-      description: The credentials do not grant access to this resource.
+    PaginatedIdentities:
+      type: object
+      properties:
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Identity'
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID representing a resource
+        status:
+          type: string
+          description: Current state of the resource in Passbase's systems
+        created:
+          type: integer
+          description: Unix-timestamp of when the resource was created
+        updated:
+          type: integer
+          description: Unix-timestamp of when the resource was updated
+        type:
+          type: string
+          description: All resource types that passbase supports
+        resource_files:
+          type: array
+          items:
+            type: object
   securitySchemes:
     SecuredKeyAuth:
       type: apiKey
