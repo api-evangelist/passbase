@@ -176,14 +176,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: The requested resource was not found.
     Unauthorized:
       description: Authentication credentials were missing or invalid.
-    TooManyRequests:
-      description: Rate limit exceeded.
+    NotFound:
+      description: The requested resource was not found.
     Forbidden:
       description: The credentials do not grant access to this resource.
+    TooManyRequests:
+      description: Rate limit exceeded.
   schemas:
     Identity:
       type: object
@@ -216,6 +216,15 @@ components:
           description: Customer defined arbitrary payload initially passed through the client-sdk
         watchlist:
           $ref: '#/components/schemas/WatchlistResponse'
+    PaginatedResources:
+      type: object
+      properties:
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
     ResourceFile:
       type: object
       properties:
@@ -232,6 +241,33 @@ components:
           type: string
           format: binary
           description: 'Raw bytes: the actual file'
+    IdentityResource:
+      type: object
+      properties:
+        datapoints:
+          type: object
+          description: Dynamic key/value hashmap of the data extracted from the resource.
+        type:
+          type: string
+          description: All resource types that passbase supports
+    IdentityOwner:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email of the user the identity belongs to
+        first_name:
+          type: string
+          description: First name of the user the identity belongs to
+        last_name:
+          type: string
+          description: Last name of the user the identity belongs to
+    Cursor:
+      type: object
+      properties:
+        next:
+          type: string
+          description: opaque token to pass back to the API to get the next batch of data
     WatchlistResponse:
       type: object
       properties:
@@ -256,51 +292,6 @@ components:
           items:
             type: string
           description: What kind of alert or warning is associated with the entity (eg. sanction, pep, warning)
-    Cursor:
-      type: object
-      properties:
-        next:
-          type: string
-          description: opaque token to pass back to the API to get the next batch of data
-    PaginatedResources:
-      type: object
-      properties:
-        cursor:
-          $ref: '#/components/schemas/Cursor'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-    IdentityOwner:
-      type: object
-      properties:
-        email:
-          type: string
-          description: Email of the user the identity belongs to
-        first_name:
-          type: string
-          description: First name of the user the identity belongs to
-        last_name:
-          type: string
-          description: Last name of the user the identity belongs to
-    IdentityResource:
-      type: object
-      properties:
-        datapoints:
-          type: object
-          description: Dynamic key/value hashmap of the data extracted from the resource.
-        type:
-          type: string
-          description: All resource types that passbase supports
-    PaginatedIdentities:
-      type: object
-      properties:
-        cursor:
-          $ref: '#/components/schemas/Cursor'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Identity'
     Resource:
       type: object
       properties:
@@ -323,6 +314,15 @@ components:
           type: array
           items:
             type: object
+    PaginatedIdentities:
+      type: object
+      properties:
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Identity'
   securitySchemes:
     SecuredKeyAuth:
       type: apiKey
