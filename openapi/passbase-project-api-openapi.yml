@@ -35,27 +35,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ProjectSettingsCustomizations:
-      type: object
-      properties:
-        button_color:
-          type: string
-          description: '"Verify Me" button background color'
-        accent_color:
-          type: string
-          description: Accent color during the verification flow
-        font_family:
-          type: string
-          description: Font used in the verification flow
-    ProjectSettingsVerificationSteps:
-      type: object
-      properties:
-        step:
-          type: string
-        resource_types:
-          type: array
-          items:
-            type: string
     ProjectSettings:
       type: object
       properties:
@@ -76,6 +55,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProjectSettingsVerificationSteps'
+    ProjectSettingsVerificationSteps:
+      type: object
+      properties:
+        step:
+          type: string
+        resource_types:
+          type: array
+          items:
+            type: string
+    ProjectSettingsCustomizations:
+      type: object
+      properties:
+        button_color:
+          type: string
+          description: '"Verify Me" button background color'
+        accent_color:
+          type: string
+          description: Accent color during the verification flow
+        font_family:
+          type: string
+          description: Font used in the verification flow
   responses:
     Unauthorized:
       description: Authentication credentials were missing or invalid.

@@ -175,16 +175,16 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials were missing or invalid.
-    NotFound:
-      description: The requested resource was not found.
-    Forbidden:
-      description: The credentials do not grant access to this resource.
-    TooManyRequests:
-      description: Rate limit exceeded.
   schemas:
+    IdentityResource:
+      type: object
+      properties:
+        datapoints:
+          type: object
+          description: Dynamic key/value hashmap of the data extracted from the resource.
+        type:
+          type: string
+          description: All resource types that passbase supports
     Identity:
       type: object
       properties:
@@ -216,15 +216,6 @@ components:
           description: Customer defined arbitrary payload initially passed through the client-sdk
         watchlist:
           $ref: '#/components/schemas/WatchlistResponse'
-    PaginatedResources:
-      type: object
-      properties:
-        cursor:
-          $ref: '#/components/schemas/Cursor'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
     ResourceFile:
       type: object
       properties:
@@ -241,33 +232,52 @@ components:
           type: string
           format: binary
           description: 'Raw bytes: the actual file'
-    IdentityResource:
+    PaginatedIdentities:
       type: object
       properties:
-        datapoints:
-          type: object
-          description: Dynamic key/value hashmap of the data extracted from the resource.
-        type:
-          type: string
-          description: All resource types that passbase supports
-    IdentityOwner:
-      type: object
-      properties:
-        email:
-          type: string
-          description: Email of the user the identity belongs to
-        first_name:
-          type: string
-          description: First name of the user the identity belongs to
-        last_name:
-          type: string
-          description: Last name of the user the identity belongs to
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Identity'
     Cursor:
       type: object
       properties:
         next:
           type: string
           description: opaque token to pass back to the API to get the next batch of data
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID representing a resource
+        status:
+          type: string
+          description: Current state of the resource in Passbase's systems
+        created:
+          type: integer
+          description: Unix-timestamp of when the resource was created
+        updated:
+          type: integer
+          description: Unix-timestamp of when the resource was updated
+        type:
+          type: string
+          description: All resource types that passbase supports
+        resource_files:
+          type: array
+          items:
+            type: object
+    PaginatedResources:
+      type: object
+      properties:
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
     WatchlistResponse:
       type: object
       properties:
@@ -292,37 +302,27 @@ components:
           items:
             type: string
           description: What kind of alert or warning is associated with the entity (eg. sanction, pep, warning)
-    Resource:
+    IdentityOwner:
       type: object
       properties:
-        id:
+        email:
           type: string
-          description: Unique ID representing a resource
-        status:
+          description: Email of the user the identity belongs to
+        first_name:
           type: string
-          description: Current state of the resource in Passbase's systems
-        created:
-          type: integer
-          description: Unix-timestamp of when the resource was created
-        updated:
-          type: integer
-          description: Unix-timestamp of when the resource was updated
-        type:
+          description: First name of the user the identity belongs to
+        last_name:
           type: string
-          description: All resource types that passbase supports
-        resource_files:
-          type: array
-          items:
-            type: object
-    PaginatedIdentities:
-      type: object
-      properties:
-        cursor:
-          $ref: '#/components/schemas/Cursor'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Identity'
+          description: Last name of the user the identity belongs to
+  responses:
+    Forbidden:
+      description: The credentials do not grant access to this resource.
+    Unauthorized:
+      description: Authentication credentials were missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded.
+    NotFound:
+      description: The requested resource was not found.
   securitySchemes:
     SecuredKeyAuth:
       type: apiKey
