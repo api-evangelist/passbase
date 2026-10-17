@@ -35,26 +35,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ProjectSettings:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the project
-        slug:
-          type: string
-          description: Slugs are meant to verify people just with the link
-        environment:
-          type: string
-        organization:
-          type: string
-          description: Name of the organization that owns this project
-        customizations:
-          $ref: '#/components/schemas/ProjectSettingsCustomizations'
-        verification_steps:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectSettingsVerificationSteps'
     ProjectSettingsVerificationSteps:
       type: object
       properties:
@@ -76,6 +56,26 @@ components:
         font_family:
           type: string
           description: Font used in the verification flow
+    ProjectSettings:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the project
+        slug:
+          type: string
+          description: Slugs are meant to verify people just with the link
+        environment:
+          type: string
+        organization:
+          type: string
+          description: Name of the organization that owns this project
+        customizations:
+          $ref: '#/components/schemas/ProjectSettingsCustomizations'
+        verification_steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectSettingsVerificationSteps'
   responses:
     Unauthorized:
       description: Authentication credentials were missing or invalid.

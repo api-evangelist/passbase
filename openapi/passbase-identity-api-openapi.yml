@@ -175,16 +175,58 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials were missing or invalid.
+    Forbidden:
+      description: The credentials do not grant access to this resource.
+    TooManyRequests:
+      description: Rate limit exceeded.
+    NotFound:
+      description: The requested resource was not found.
   schemas:
-    IdentityResource:
+    WatchlistResponse:
       type: object
       properties:
-        datapoints:
+        clean:
+          type: boolean
+          description: Indicates whether the authentication watchlist check is clean
+        listings:
           type: object
-          description: Dynamic key/value hashmap of the data extracted from the resource.
-        type:
-          type: string
-          description: All resource types that passbase supports
+          description: Watchlist check findings
+        media:
+          type: array
+          items:
+            type: object
+          description: List of media entries, with date, title, and url parameters
+        sources:
+          type: array
+          items:
+            type: string
+          description: Array of listing sources (eg. sanction lists)
+        types:
+          type: array
+          items:
+            type: string
+          description: What kind of alert or warning is associated with the entity (eg. sanction, pep, warning)
+    PaginatedResources:
+      type: object
+      properties:
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+    PaginatedIdentities:
+      type: object
+      properties:
+        cursor:
+          $ref: '#/components/schemas/Cursor'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Identity'
     Identity:
       type: object
       properties:
@@ -232,21 +274,6 @@ components:
           type: string
           format: binary
           description: 'Raw bytes: the actual file'
-    PaginatedIdentities:
-      type: object
-      properties:
-        cursor:
-          $ref: '#/components/schemas/Cursor'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Identity'
-    Cursor:
-      type: object
-      properties:
-        next:
-          type: string
-          description: opaque token to pass back to the API to get the next batch of data
     Resource:
       type: object
       properties:
@@ -269,39 +296,6 @@ components:
           type: array
           items:
             type: object
-    PaginatedResources:
-      type: object
-      properties:
-        cursor:
-          $ref: '#/components/schemas/Cursor'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-    WatchlistResponse:
-      type: object
-      properties:
-        clean:
-          type: boolean
-          description: Indicates whether the authentication watchlist check is clean
-        listings:
-          type: object
-          description: Watchlist check findings
-        media:
-          type: array
-          items:
-            type: object
-          description: List of media entries, with date, title, and url parameters
-        sources:
-          type: array
-          items:
-            type: string
-          description: Array of listing sources (eg. sanction lists)
-        types:
-          type: array
-          items:
-            type: string
-          description: What kind of alert or warning is associated with the entity (eg. sanction, pep, warning)
     IdentityOwner:
       type: object
       properties:
@@ -314,15 +308,21 @@ components:
         last_name:
           type: string
           description: Last name of the user the identity belongs to
-  responses:
-    Forbidden:
-      description: The credentials do not grant access to this resource.
-    Unauthorized:
-      description: Authentication credentials were missing or invalid.
-    TooManyRequests:
-      description: Rate limit exceeded.
-    NotFound:
-      description: The requested resource was not found.
+    IdentityResource:
+      type: object
+      properties:
+        datapoints:
+          type: object
+          description: Dynamic key/value hashmap of the data extracted from the resource.
+        type:
+          type: string
+          description: All resource types that passbase supports
+    Cursor:
+      type: object
+      properties:
+        next:
+          type: string
+          description: opaque token to pass back to the API to get the next batch of data
   securitySchemes:
     SecuredKeyAuth:
       type: apiKey
