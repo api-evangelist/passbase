@@ -64,6 +64,82 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Passbase is a company surfaced as a portfolio company of cowboy-ventures, seedcamp and added to the API Evangelist network as a stub for enrichment. Sector: security. This profile is a lead awaiting the enrichment pipeline.
+> **Acquired or rebranded.** This company was acquired, merged or renamed. Its API, if it still exists, is offered under another name. This profile is kept as a historical record and is not maintained or rated.
 
-Backed by: cowboy-ventures, seedcamp — https://www.passbase.com
+Passbase was a developer-first identity verification (KYC) platform founded in Berlin and San Francisco that let companies verify users in seconds through facial comparison, liveness detection, and authenticity checks on government-issued IDs from 190+ countries. It shipped mobile and web client SDKs plus a server-side Verifications API (v2) for reading verified identities, their resources and data points, and project settings, with webhooks for verification lifecycle events. Passbase was acquired by Parallel Markets in March 2023; api.passbase.com and docs.passbase.com are no longer live, and this API Evangelist profile captures the last-published API surface reconstructed from the company's official OpenAPI-generated SDKs. Backed by Cowboy Ventures and Seedcamp.
+
+**Areas:** Company · Security · Identity Verification · KYC · Biometrics · Authentication · Identity · Compliance
+
+## Passbase on APIs.io (historical record)
+
+Everything profiled for Passbase is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/passbase/](https://apis.io/providers/passbase/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Passbase Identity API](https://apis.io/apis/passbase/passbase-identity-api/) — Access verified identities, their resources and resource files.
+- [Passbase Project API](https://apis.io/apis/passbase/passbase-project-api/) — Read project settings and verification configuration.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Passbase Webhooks](https://apis.io/asyncapis/passbase/passbase-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [passbase](https://apis.io/servers/passbase/passbase/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Passbase Agentic Access](https://apis.io/agentic-access/passbase/passbase-agentic-access/)
+
+#### Collections (2)
+
+Postman and Open Collection request collections.
+
+- [Passbase Verifications Identity API](https://apis.io/collections/passbase/open-passbase-identity-api/)
+- [Passbase Verifications Identity Project API](https://apis.io/collections/passbase/open-passbase-project-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Passbase Verification Overlay](https://apis.io/overlays/passbase/passbase-verification-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Passbase Authentication](https://apis.io/security/passbase/passbase-authentication/)
+- [Passbase Domain Security](https://apis.io/security/passbase/passbase-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.passbase.com)
+- [GitHub](https://github.com/passbase)
+
+## API Evangelist rating
+
+**Not rated** — this company is recorded as acquired or rebranded, so no score is published. If it is in fact operating, say so on this repository and it will be re-profiled.
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Passbase: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/passbase/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
